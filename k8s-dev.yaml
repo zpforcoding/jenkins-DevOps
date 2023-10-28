@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment 
+metadata:
+  name: nodeapp-dev
+  namespace: development 
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: nodeapp
+  template:
+    metadata:
+        labels:
+          app: nodeapp
+    spec:
+      containers:
+        - image: harbor:8085/beck/jenkins-demo:<BUILD_TAG>
+          name: nodeapp 
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 3000
+          env:
+            - name: branch
+              value: <BUILD_BRANCH>            
+
+---
+apiVersion: v1 
+kind: Service 
+metadata:
+  name: nodeapp-svc
+  namespace: development
+spec:
+  type: NodePort 
+  selector:
+    app: nodeapp
+  ports:
+    - port: 9200
+      protocol: TCP 
+      targetPort: 3000
+      nodePort: 30808
+        
