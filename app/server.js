@@ -1,5 +1,7 @@
-const express = require('express');
-const pino = require('pino');
+const express = require('express')
+const pino = require('pino')
+const path = require("path")
+
 
 const app = express();
 
@@ -7,6 +9,17 @@ const logger = pino({
     level: 'info',
     timestamp: () => `,"time":"${new Date().toISOString()}"`
 });
+
+app.use("/static", express.static(path.join(__dirname, 'static')))
+app.set('views', path.join(__dirname, 'views'));
+app.set("view engine", "ejs")
+
+
+
+app.get("/test", function (req, res) {
+    res.render("test", { "name": "张学友", age: 20 })
+})
+
 
 logger.info('hello elastic world');
 logger.info('This is some great stuff');
