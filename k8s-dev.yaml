@@ -39,3 +39,20 @@ spec:
       targetPort: 3000
       nodePort: 30808
         
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress 
+metadata: 
+  name: nodeapp-ing
+  namespace: development
+spec:
+  rules:
+    - host: nodeapp.beck.com
+      http:
+        - paths:
+            beckend: nodeapp-svc
+            path: /
+            pathType: "Prefix"
+
+
+
