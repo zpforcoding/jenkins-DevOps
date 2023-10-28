@@ -50,9 +50,9 @@ spec:
     - host: nodeapp.beck.com
       http:
         paths:
-          beckend: nodeapp-svc
-          path: /
-          pathType: "Prefix"
+          - backend: nodeapp-svc
+            path: /
+            pathType: "Prefix"
 
 
 
