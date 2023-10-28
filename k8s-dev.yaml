@@ -51,7 +51,10 @@ spec:
       http:
         paths:
           - backend: 
-              service: nodeapp-svc
+              service: 
+                name: nodeapp-svc
+                port: 
+                number: 9200
             path: /
             pathType: "Prefix"
 
