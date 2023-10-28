@@ -46,6 +46,7 @@ metadata:
   name: nodeapp-ing
   namespace: development
 spec:
+  ingressClassName: "nginx"
   rules:
     - host: "nodeapp.beck.com"
       http:

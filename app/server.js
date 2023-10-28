@@ -16,7 +16,7 @@ app.set("view engine", "ejs")
 
 
 
-app.get("/test", function (req, res) {
+app.get("/", function (req, res) {
     res.render("test", { "name": "张学友", age: 20 })
 })
 
