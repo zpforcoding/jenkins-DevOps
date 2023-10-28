@@ -54,7 +54,6 @@ spec:
               service: 
                 name: nodeapp-svc
                 port: 
-                  name: nodeapp-ing-port
                   number: 9200
             path: /
             pathType: "Prefix"
