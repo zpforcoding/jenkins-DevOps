@@ -37,10 +37,13 @@ node('jenkins-slave') {
   }
   stage("Deploy to Dev") {
     echo "5.Deploy to DEV"
-    sh "ls -la /usr/app"
+    sh "pwd"
+    sh "ls -la"
+    sh "ls -la app"
     sh "echo ${env.BRANCH_NAME}"
     sh "sed -i 's/<BUILD_TAG>/${build_tag}/' k8s-dev.yaml"
     sh "sed -i 's/<BUILD_BRANCH>/${env.BRANCH_NAME}/' k8s-dev.yaml"
+    sh "bash running-development.sh" 
     sh "kubectl apply -f k8s-dev.yaml --validate=false"
   }
 }
