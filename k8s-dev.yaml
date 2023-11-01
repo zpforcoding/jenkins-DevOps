@@ -30,14 +30,13 @@ metadata:
   name: nodeapp-svc
   namespace: development
 spec:
-  type: NodePort 
+  type: ClusterIP 
   selector:
     app: nodeapp
   ports:
     - port: 9200
       protocol: TCP 
       targetPort: 3000
-      nodePort: 30808
         
 ---
 apiVersion: networking.k8s.io/v1

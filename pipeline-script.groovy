@@ -46,4 +46,28 @@ node('jenkins-slave') {
     sh "bash running-development.sh" 
     sh "kubectl apply -f k8s-dev.yaml --validate=false"
   }
+  stage("Promote to qa") {
+    def userInput = input(
+      id: 'userInput',
+      message: 'Promote to qa?'
+      parameters: [
+        [
+          $class: 'ChoiceParameterDefinition',
+          choices: "YES\nNO",
+          name: 'Env'
+        ]
+      ]
+    )
+    echo "This is a deployment step to ${userInput}"
+    if (userInput == "YES") {
+      sh "sed -i 's/<BUILD_TAG>/${build_tag}/' k8s-qa.yaml"
+      sh "sed -i 's/<BRANCH_NAME>/${env.BRANCH_NAME}/' k8s-qa.yaml"
+      // "sh bash running-qa.sh"
+      sh "kubectl apply -f k8s-qa.yaml --validate=false"
+      sh "sleep 6"
+      sh "kubectl get pods -n qatest"
+    } else {
+      //exit
+    }
+  }
 }
