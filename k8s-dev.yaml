@@ -34,7 +34,7 @@ spec:
   selector:
     app: nodeapp
   ports:
-    - port: 9200
+    - port: 80
       protocol: TCP 
       targetPort: 3000
       nodePort: 30808
@@ -57,6 +57,6 @@ spec:
               service: 
                 name: nodeapp-svc
                 port: 
-                  number: 9200
+                  number: 80
 
 
